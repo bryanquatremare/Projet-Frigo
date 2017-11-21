@@ -16,7 +16,7 @@ public class SerialTest implements SerialPortEventListener {
 	private String[] inputLines;
 	private MaFrame frame;
 	SerialPort serialPort; // port de connexion
-	private static final String PORT_NAMES[] = { "COM4" }; // nom du port
+	private static final String PORT_NAMES[] = { "COM12" }; // nom du port
 
 	private BufferedReader input;
 	@SuppressWarnings("unused")
@@ -84,7 +84,7 @@ public class SerialTest implements SerialPortEventListener {
 					for (int i = 0; i < 5; i++) {
 						this.setInputLine(input.readLine(), i);
 					}
-					System.out.println(this.inputLines[0]+this.inputLines[1]+this.inputLines[2]+this.inputLines[3]+this.inputLines[4]);
+					System.out.println(this.inputLines[0]+"\n"+this.inputLines[1]+"\n"+this.inputLines[2]+"\n"+this.inputLines[3]+"\n"+this.inputLines[4]);
 					this.frame.setTextLabel(this.getInputLine(1));
 					this.deleteValuesInputLines();
 				}
@@ -104,6 +104,6 @@ public class SerialTest implements SerialPortEventListener {
 	}
 
 	public void deleteValuesInputLines() {
-		this.inputLines = new String[3];
+		this.inputLines = new String[5];
 	}
 }
