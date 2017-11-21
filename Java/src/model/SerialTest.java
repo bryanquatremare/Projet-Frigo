@@ -14,8 +14,7 @@ public class SerialTest implements SerialPortEventListener {
 	private static String inputLine;
 
 	public SerialTest() {
-		CommPortTest commPortTest=new CommPortTest();
-		this.setCommporttest(commPortTest);
+		this.setCommporttest(new CommPortTest());
 	}
 
 	SerialPort serialPort;
