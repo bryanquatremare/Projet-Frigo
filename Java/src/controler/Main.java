@@ -18,7 +18,7 @@ public class Main {
 					Thread.sleep(1000000);
 				} catch (InterruptedException ie)
 				{
-					
+					System.err.println(ie.toString());
 				}
 			}
 		};

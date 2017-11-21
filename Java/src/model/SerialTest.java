@@ -14,9 +14,9 @@ import java.util.Enumeration;
 public class SerialTest implements SerialPortEventListener {
 
 	private String inputLine;
-
+	private MaFrame frame;
 	SerialPort serialPort; //port de connexion
-	private static final String PORT_NAMES[] = { "COM12" }; //nom du port
+	private static final String PORT_NAMES[] = { "COM4" }; //nom du port
 
 	private BufferedReader input;
 	@SuppressWarnings("unused")
@@ -28,6 +28,7 @@ public class SerialTest implements SerialPortEventListener {
 		frame.setInputArduino(this.getInputLine());
 		frame.affichelaJFrame(this);
 		frame.setTextLabel(frame.getInputArduino());
+		this.frame=frame;
 	}
 	public void initialize() { //initialisation de la connexion
 		CommPortIdentifier portId = null;
@@ -78,7 +79,7 @@ public class SerialTest implements SerialPortEventListener {
 				if (input.ready()) {
 					this.setInputLine(input.readLine());
 					
-					System.out.println(inputLine);
+					this.frame.setTextLabel(inputLine);
 				}
 
 			} catch (Exception e) {
