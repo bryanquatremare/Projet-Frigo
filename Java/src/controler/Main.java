@@ -1,10 +1,13 @@
 package controler;
 
+import model.SerialTest;
+import view.MaFrame;
+
 public class Main {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+		// schedule this for the event dispatch thread (edt)
+		MaFrame maframe = new MaFrame();
+		maframe.run(new SerialTest());
 	}
-
 }
