@@ -18,7 +18,7 @@ void loop()
   
 }
 
-int send()
+int consigne()
 {
     char buffer[] = {' ',' ',' ',' '};
     while(!Serial.available());
