@@ -14,6 +14,7 @@ public class SerialTest implements SerialPortEventListener
 	private static final String PORT_NAMES[] = {"COM12"};
 	
 	private BufferedReader input;
+	@SuppressWarnings("unused")
 	private OutputStream output;
 	private static final int TIME_OUT = 2000;
 	private static final int DATA_RATE = 9600;
@@ -21,6 +22,7 @@ public class SerialTest implements SerialPortEventListener
 	public void initialize()
 	{
 		CommPortIdentifier portId = null;
+		@SuppressWarnings("rawtypes")
 		Enumeration portEnum = CommPortIdentifier.getPortIdentifiers();
 		
 		while(portEnum.hasMoreElements())

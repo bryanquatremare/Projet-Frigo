@@ -10,6 +10,7 @@ public class CommPortTest {
 		
 		CommPortIdentifier serialPort;
 		
+		@SuppressWarnings("rawtypes")
 		Enumeration enumComm;
 		
 		enumComm = CommPortIdentifier.getPortIdentifiers();
