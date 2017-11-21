@@ -4,6 +4,8 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
+import model.SerialTest;
+
 @SuppressWarnings("serial")
 public class MaFrame extends Frame {
 
@@ -11,7 +13,7 @@ public class MaFrame extends Frame {
 	static JDialog jdialog;
 	static JDialog dialoguedeux;
 
-	public void run() {
+	public void run(SerialTest serialtest) {
 		affichelaJFrame();
 	}
 
