@@ -10,15 +10,11 @@ import gnu.io.SerialPortEventListener;
 import java.util.Enumeration;
 
 public class SerialTest implements SerialPortEventListener {
-	private static CommPortTest commporttest;
+
 	private static String inputLine;
 
-	public SerialTest() {
-		this.setCommporttest(new CommPortTest());
-	}
-
 	SerialPort serialPort;
-	private static final String PORT_NAMES[] = { getCommporttest().serialPort.getName() };
+	private static final String PORT_NAMES[] = { "COM12" };
 
 	private BufferedReader input;
 	@SuppressWarnings("unused")
@@ -81,14 +77,6 @@ public class SerialTest implements SerialPortEventListener {
 				System.err.println(e.toString());
 			}
 		}
-	}
-
-	public static CommPortTest getCommporttest() {
-		return commporttest;
-	}
-
-	public void setCommporttest(CommPortTest commporttest) {
-		SerialTest.commporttest = commporttest;
 	}
 
 	public static String getInputLine() {
