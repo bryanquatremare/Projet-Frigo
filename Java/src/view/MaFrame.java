@@ -9,15 +9,18 @@ import model.SerialTest;
 @SuppressWarnings("serial")
 public class MaFrame extends Frame {
 
+	private String inputarduino;
 	static JFrame frame;
 	static JDialog jdialog;
 	static JDialog dialoguedeux;
 
-	public void run(SerialTest serialtest) { //lance la frame
+	public synchronized void run(SerialTest serialtest) { // lance la frame
+		this.inputarduino = serialtest.getInputLine();
+		System.out.println(this.inputarduino);
 		affichelaJFrame(serialtest);
 	}
 
-	static void affichelaJFrame(SerialTest serialtest) { //affiche la frame
+	public void affichelaJFrame(SerialTest serialtest) { // affiche la frame
 		frame = new JFrame("Interface de gestion du Frigo");
 
 		// preparer les dialogues (listener)
@@ -84,7 +87,7 @@ public class MaFrame extends Frame {
 
 		// Affichage du dialogue correspondant lors de l'appuiyage (LOL) d'un
 		// bouton
-		JButton showDialogButton = new JButton("Afficher température intérieure");
+		JButton showDialogButton = new JButton(this.inputarduino);
 		showDialogButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				jdialog.setLocationRelativeTo(frame);

@@ -11,7 +11,7 @@ import java.util.Enumeration;
 
 public class SerialTest implements SerialPortEventListener {
 
-	private static String inputLine;
+	private String inputLine;
 
 	SerialPort serialPort; //port de connexion
 	private static final String PORT_NAMES[] = { "COM12" }; //nom du port
@@ -68,9 +68,10 @@ public class SerialTest implements SerialPortEventListener {
 	public synchronized void serialEvent(SerialPortEvent oEvent) { //ajouter un eventlistener sur le serialport
 		if (oEvent.getEventType() == SerialPortEvent.DATA_AVAILABLE) {
 			try {
-				this.setInputLine(null);
 				if (input.ready()) {
 					this.setInputLine(input.readLine());
+					
+					System.out.println(inputLine);
 				}
 
 			} catch (Exception e) {
@@ -79,11 +80,11 @@ public class SerialTest implements SerialPortEventListener {
 		}
 	}
 
-	public static String getInputLine() { //récupérer la ligne d'input
-		return inputLine;
+	public String getInputLine() { //récupérer la ligne d'input
+		return this.inputLine;
 	}
 
 	public void setInputLine(String inputLine) { //changer la ligne d'input
-		SerialTest.inputLine = inputLine;
+		this.inputLine = inputLine;
 	}
 }
