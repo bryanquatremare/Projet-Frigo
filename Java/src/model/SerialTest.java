@@ -11,6 +11,7 @@ import java.util.Enumeration;
 
 public class SerialTest implements SerialPortEventListener {
 	private static CommPortTest commporttest;
+	private static String inputLine;
 
 	public SerialTest() {
 		this.setCommporttest(new CommPortTest());
@@ -71,11 +72,9 @@ public class SerialTest implements SerialPortEventListener {
 	public synchronized void serialEvent(SerialPortEvent oEvent) {
 		if (oEvent.getEventType() == SerialPortEvent.DATA_AVAILABLE) {
 			try {
-				String inputLine = null;
+				this.setInputLine(null);
 				if (input.ready()) {
-					inputLine = input.readLine();
-
-					System.out.println(inputLine);
+					this.setInputLine(input.readLine());
 				}
 
 			} catch (Exception e) {
@@ -84,27 +83,19 @@ public class SerialTest implements SerialPortEventListener {
 		}
 	}
 
-	public static void main(String[] args) throws Exception {
-		SerialTest main = new SerialTest();
-		main.initialize();
-		Thread t = new Thread() {
-			public void run() {
-				try {
-					Thread.sleep(1000000);
-				} catch (InterruptedException ie) {
-
-				}
-			}
-		};
-		t.start();
-		System.out.println("C'est booooon");
-	}
-
 	public static CommPortTest getCommporttest() {
 		return commporttest;
 	}
 
 	public void setCommporttest(CommPortTest commporttest) {
 		SerialTest.commporttest = commporttest;
+	}
+
+	public static String getInputLine() {
+		return inputLine;
+	}
+
+	public void setInputLine(String inputLine) {
+		SerialTest.inputLine = inputLine;
 	}
 }
