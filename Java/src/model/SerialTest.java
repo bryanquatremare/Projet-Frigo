@@ -13,8 +13,8 @@ public class SerialTest implements SerialPortEventListener {
 
 	private static String inputLine;
 
-	SerialPort serialPort;
-	private static final String PORT_NAMES[] = { "COM12" };
+	SerialPort serialPort; //port de connexion
+	private static final String PORT_NAMES[] = { "COM12" }; //nom du port
 
 	private BufferedReader input;
 	@SuppressWarnings("unused")
@@ -22,7 +22,7 @@ public class SerialTest implements SerialPortEventListener {
 	private static final int TIME_OUT = 2000;
 	private static final int DATA_RATE = 9600;
 
-	public void initialize() {
+	public void initialize() { //initialisation de la connexion
 		CommPortIdentifier portId = null;
 		@SuppressWarnings("rawtypes")
 		Enumeration portEnum = CommPortIdentifier.getPortIdentifiers();
@@ -58,14 +58,14 @@ public class SerialTest implements SerialPortEventListener {
 		}
 	}
 
-	public synchronized void close() {
+	public synchronized void close() { //fermer la connexion
 		if (serialPort != null) {
 			serialPort.removeEventListener();
 			serialPort.close();
 		}
 	}
 
-	public synchronized void serialEvent(SerialPortEvent oEvent) {
+	public synchronized void serialEvent(SerialPortEvent oEvent) { //ajouter un eventlistener sur le serialport
 		if (oEvent.getEventType() == SerialPortEvent.DATA_AVAILABLE) {
 			try {
 				this.setInputLine(null);
@@ -79,11 +79,11 @@ public class SerialTest implements SerialPortEventListener {
 		}
 	}
 
-	public static String getInputLine() {
+	public static String getInputLine() { //récupérer la ligne d'input
 		return inputLine;
 	}
 
-	public void setInputLine(String inputLine) {
+	public void setInputLine(String inputLine) { //changer la ligne d'input
 		SerialTest.inputLine = inputLine;
 	}
 }

@@ -13,11 +13,11 @@ public class MaFrame extends Frame {
 	static JDialog jdialog;
 	static JDialog dialoguedeux;
 
-	public void run(SerialTest serialtest) {
+	public void run(SerialTest serialtest) { //lance la frame
 		affichelaJFrame(serialtest);
 	}
 
-	static void affichelaJFrame(SerialTest serialtest) {
+	static void affichelaJFrame(SerialTest serialtest) { //affiche la frame
 		frame = new JFrame("Interface de gestion du Frigo");
 
 		// preparer les dialogues (listener)
