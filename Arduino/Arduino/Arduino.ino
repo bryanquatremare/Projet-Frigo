@@ -1,11 +1,11 @@
-/*#include "DHT.h"
+#include "DHT.h"
 
 #define PIN 2
 
 DHT dht(PIN, DHT22); // initializing DHT sensor
 
 // initializing setpoint as global variable because we have to initialise it at 0 but not have to reset at every loop
-int cons = 0;*/
+int cons = 0;
 
 void setup()
 {
@@ -15,14 +15,14 @@ void setup()
 
 void loop()
 {
-  
+    
 }
 
 int consigne()
 {
-    char buffer[] = {' ',' ',' ',' '};
+    char buffer[] = {' ',' ',' '};
     while(!Serial.available());
-    Serial.readBytesUntil('n', buffer, 4);
+    Serial.readBytesUntil('n', buffer, 3);
     int cons = atoi(buffer);
     // Debug
     //Serial.println(cons);
