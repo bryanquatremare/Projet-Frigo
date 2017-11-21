@@ -13,10 +13,10 @@ import java.util.Enumeration;
 
 public class SerialTest implements SerialPortEventListener {
 
-	private String inputLine;
+	private String[] inputLines;
 	private MaFrame frame;
-	SerialPort serialPort; //port de connexion
-	private static final String PORT_NAMES[] = { "COM4" }; //nom du port
+	SerialPort serialPort; // port de connexion
+	private static final String PORT_NAMES[] = { "COM4" }; // nom du port
 
 	private BufferedReader input;
 	@SuppressWarnings("unused")
@@ -25,12 +25,13 @@ public class SerialTest implements SerialPortEventListener {
 	private static final int DATA_RATE = 9600;
 
 	public synchronized void run(MaFrame frame) { // lance la frame
-		frame.setInputArduino(this.getInputLine());
+		frame.setInputArduino(this.getInputLine(1));
 		frame.affichelaJFrame(this);
 		frame.setTextLabel(frame.getInputArduino());
-		this.frame=frame;
+		this.frame = frame;
 	}
-	public void initialize() { //initialisation de la connexion
+
+	public void initialize() { // initialisation de la connexion
 		CommPortIdentifier portId = null;
 		@SuppressWarnings("rawtypes")
 		Enumeration portEnum = CommPortIdentifier.getPortIdentifiers();
@@ -66,20 +67,25 @@ public class SerialTest implements SerialPortEventListener {
 		}
 	}
 
-	public synchronized void close() { //fermer la connexion
+	public synchronized void close() { // fermer la connexion
 		if (serialPort != null) {
 			serialPort.removeEventListener();
 			serialPort.close();
 		}
 	}
 
-	public synchronized void serialEvent(SerialPortEvent oEvent) { //ajouter un eventlistener sur le serialport
+	public synchronized void serialEvent(SerialPortEvent oEvent) { // ajouter un
+																	// eventlistener
+																	// sur le
+																	// serialport
 		if (oEvent.getEventType() == SerialPortEvent.DATA_AVAILABLE) {
 			try {
 				if (input.ready()) {
-					this.setInputLine(input.readLine());
-					
-					this.frame.setTextLabel(inputLine);
+					this.inputLines = new String[3];
+					for (int i = 0; i < 3; i++) {
+						this.setInputLine(input.readLine(), i);
+					}
+					this.frame.setTextLabel(this.getInputLine(1));
 				}
 
 			} catch (Exception e) {
@@ -88,11 +94,16 @@ public class SerialTest implements SerialPortEventListener {
 		}
 	}
 
-	public String getInputLine() { //récupérer la ligne d'input
-		return this.inputLine;
+	public String getInputLine(int i) { // récupérer la ligne d'input
+		return this.inputLines[i];
 	}
 
-	public void setInputLine(String inputLine) { //changer la ligne d'input
-		this.inputLine = inputLine;
+	public void setInputLine(String inputLine, int i) { // changer la ligne
+														// d'input
+		this.inputLines[i] = inputLine;
+	}
+
+	public void deleteValuesInputLines() {
+		this.inputLines = new String[3];
 	}
 }

@@ -15,11 +15,10 @@ public class MaFrame extends Frame {
 	static JDialog dialoguedeux;
 	private JLabel temperature;
 
-
 	public void affichelaJFrame(SerialTest serialtest) { // affiche la frame
 
 		this.temperature = new JLabel("Voici donc la température actuelle");
-		
+
 		frame = new JFrame("Interface de gestion du Frigo");
 		frame.add(temperature);
 		// preparer les dialogues (listener)
@@ -84,17 +83,6 @@ public class MaFrame extends Frame {
 			}
 		});
 
-		// Affichage du dialogue correspondant lors de l'appuiyage (LOL) d'un
-		// bouton
-		JButton showDialogButton = new JButton(this.inputarduino);
-		showDialogButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				jdialog.setLocationRelativeTo(frame);
-				jdialog.setSize(300, 200);
-				jdialog.setVisible(true);
-			}
-		});
-
 		JButton montreledialoguePrevu = new JButton("Afficher Température extérieure");
 		montreledialoguePrevu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -103,11 +91,9 @@ public class MaFrame extends Frame {
 				dialoguedeux.setVisible(true);
 			}
 		});
-		
 
 		// Mettre les bouttons sur la fenêtre
 		frame.getContentPane().setLayout(new FlowLayout());
-		frame.add(showDialogButton);
 		frame.add(montreledialoguePrevu);
 
 		// set up de la fenêtre puis affichage
@@ -117,16 +103,16 @@ public class MaFrame extends Frame {
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 	}
-	public void setTextLabel(String text)
-	{
+
+	public void setTextLabel(String text) {
 		this.temperature.setText(text);
 	}
-	public void setInputArduino(String text)
-	{
-		this.inputarduino=text;
+
+	public void setInputArduino(String text) {
+		this.inputarduino = text;
 	}
-	public String getInputArduino()
-	{
+
+	public String getInputArduino() {
 		return this.inputarduino;
 	}
 }
