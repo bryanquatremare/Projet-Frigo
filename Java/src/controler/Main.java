@@ -1,6 +1,5 @@
 package controler;
 
-
 import model.SerialTest;
 import view.MaFrame;
 

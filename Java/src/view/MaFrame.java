@@ -17,7 +17,6 @@ public class MaFrame extends Frame {
 		affichelaJFrame();
 	}
 
-
 	static void affichelaJFrame() {
 		frame = new JFrame("Interface de gestion du Frigo");
 
