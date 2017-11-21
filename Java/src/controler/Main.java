@@ -23,6 +23,6 @@ public class Main {
 			}
 		};
 		t.start();
-		maframe.run(main); //lance la frame avec un serialtest pour récupérer les infos de l'arduino
+		main.run(maframe); //lance la frame avec un serialtest pour récupérer les infos de l'arduino
 	}
 }

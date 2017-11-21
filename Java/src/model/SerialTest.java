@@ -7,6 +7,8 @@ import gnu.io.CommPortIdentifier;
 import gnu.io.SerialPort;
 import gnu.io.SerialPortEvent;
 import gnu.io.SerialPortEventListener;
+import view.MaFrame;
+
 import java.util.Enumeration;
 
 public class SerialTest implements SerialPortEventListener {
@@ -22,6 +24,11 @@ public class SerialTest implements SerialPortEventListener {
 	private static final int TIME_OUT = 2000;
 	private static final int DATA_RATE = 9600;
 
+	public synchronized void run(MaFrame frame) { // lance la frame
+		frame.setInputArduino(this.getInputLine());
+		frame.affichelaJFrame(this);
+		frame.setTextLabel(frame.getInputArduino());
+	}
 	public void initialize() { //initialisation de la connexion
 		CommPortIdentifier portId = null;
 		@SuppressWarnings("rawtypes")

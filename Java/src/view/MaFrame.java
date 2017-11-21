@@ -15,11 +15,6 @@ public class MaFrame extends Frame {
 	static JDialog dialoguedeux;
 	private JLabel temperature;
 
-	public synchronized void run(SerialTest serialtest) { // lance la frame
-		this.inputarduino = serialtest.getInputLine();
-		affichelaJFrame(serialtest);
-		this.setTextLabel(this.inputarduino);
-	}
 
 	public void affichelaJFrame(SerialTest serialtest) { // affiche la frame
 
@@ -125,5 +120,13 @@ public class MaFrame extends Frame {
 	public void setTextLabel(String text)
 	{
 		this.temperature.setText(text);
+	}
+	public void setInputArduino(String text)
+	{
+		this.inputarduino=text;
+	}
+	public String getInputArduino()
+	{
+		return this.inputarduino;
 	}
 }
