@@ -5,7 +5,7 @@
 DHT dht(PIN, DHT22); // initializing DHT sensor
 
 // initializing setpoint as global variable because we have to initialise it at 0 but not have to reset at every loop
-int cons = 0;
+int cons = 25;
 
 void setup()
 {
@@ -18,15 +18,20 @@ void loop()
     float hum = 0;
     float temp = 0;
     float poro = 0;
+    boolean alerte = false;
     if(Serial.available())
     {
         cons = consigne();
     }
     sensor(&hum, &temp);
     poro = magnus(temp, hum);
+    if(temp <= poro)
+        alerte = true;
+    
     Serial.println(cons);
-    Serial.println(poro);
     Serial.println(temp);
+    Serial.println(poro);
+    Serial.println(alerte);
     Serial.println("");
     delay(2000);
       
