@@ -13,6 +13,7 @@ public class MaFrame extends Frame {
 	static JFrame frame;
 	static JDialog jdialog;
 	static JDialog dialoguedeux;
+	private JLabel temperature;
 
 	public synchronized void run(SerialTest serialtest) { // lance la frame
 		this.inputarduino = serialtest.getInputLine();
@@ -104,11 +105,15 @@ public class MaFrame extends Frame {
 				dialoguedeux.setVisible(true);
 			}
 		});
+		
+		JLabel temperature = new JLabel("Voici donc la température actuelle");
+		
 
 		// Mettre les bouttons sur la fenêtre
 		frame.getContentPane().setLayout(new FlowLayout());
 		frame.add(showDialogButton);
 		frame.add(montreledialoguePrevu);
+		frame.add(temperature);
 
 		// set up de la fenêtre puis affichage
 		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -116,5 +121,9 @@ public class MaFrame extends Frame {
 		frame.pack();
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
+	}
+	public void setTextLabel(String text)
+	{
+		
 	}
 }
