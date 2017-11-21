@@ -15,7 +15,6 @@ public class SerialTest implements SerialPortEventListener {
 
 	private String[] inputLines;
 	private MaFrame frame;
-	private int i;
 	SerialPort serialPort; // port de connexion
 	private static final String PORT_NAMES[] = { "COM4" }; // nom du port
 
@@ -26,11 +25,9 @@ public class SerialTest implements SerialPortEventListener {
 	private static final int DATA_RATE = 9600;
 
 	public synchronized void run(MaFrame frame) { // lance la frame
+		this.frame = frame;
 		frame.setInputArduino(this.getInputLine(1));
 		frame.affichelaJFrame(this);
-		frame.setTextLabel(frame.getInputArduino());
-		this.frame = frame;
-		this.i = 0;
 	}
 
 	public void initialize() { // initialisation de la connexion
@@ -83,12 +80,11 @@ public class SerialTest implements SerialPortEventListener {
 		if (oEvent.getEventType() == SerialPortEvent.DATA_AVAILABLE) {
 			try {
 				if (input.ready()) {
-					this.inputLines = new String[3];
-					for (int i = 0; i < 3; i++) {
+					this.inputLines = new String[5];
+					for (int i = 0; i < 5; i++) {
 						this.setInputLine(input.readLine(), i);
 					}
-					this.i++;
-					System.out.println(this.inputLines[2]);
+					System.out.println(this.inputLines[0]+this.inputLines[1]+this.inputLines[2]+this.inputLines[3]+this.inputLines[4]);
 					this.frame.setTextLabel(this.getInputLine(1));
 					this.deleteValuesInputLines();
 				}
