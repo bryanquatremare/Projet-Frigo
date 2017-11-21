@@ -21,14 +21,14 @@ void loop()
         return;
     }
 
-    // Debug
-    Serial.print("Humidité: ");
-    Serial.print(hum);
-    Serial.println("%");
-    // Debug
-    Serial.print("Température: ");
-    Serial.print(temp);
-    Serial.println("*C");
+    /* Debug
+    Serial.print("Humidité: ");*/
+    Serial.println(hum);
+    //Serial.println("%");
+    /* Debug
+    Serial.print("Température: ");*/
+    Serial.println(temp);
+    //Serial.println("*C");
     Serial.println("");
     
     delay(2000);
