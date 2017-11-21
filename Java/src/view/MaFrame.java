@@ -17,13 +17,16 @@ public class MaFrame extends Frame {
 
 	public synchronized void run(SerialTest serialtest) { // lance la frame
 		this.inputarduino = serialtest.getInputLine();
-		System.out.println(this.inputarduino);
 		affichelaJFrame(serialtest);
+		this.setTextLabel(this.inputarduino);
 	}
 
 	public void affichelaJFrame(SerialTest serialtest) { // affiche la frame
-		frame = new JFrame("Interface de gestion du Frigo");
 
+		this.temperature = new JLabel("Voici donc la température actuelle");
+		
+		frame = new JFrame("Interface de gestion du Frigo");
+		frame.add(temperature);
 		// preparer les dialogues (listener)
 		jdialog = new JDialog(frame, "Bonjour", true);
 		dialoguedeux = new JDialog(frame, "La bonne journée", true);
@@ -106,14 +109,11 @@ public class MaFrame extends Frame {
 			}
 		});
 		
-		JLabel temperature = new JLabel("Voici donc la température actuelle");
-		
 
 		// Mettre les bouttons sur la fenêtre
 		frame.getContentPane().setLayout(new FlowLayout());
 		frame.add(showDialogButton);
 		frame.add(montreledialoguePrevu);
-		frame.add(temperature);
 
 		// set up de la fenêtre puis affichage
 		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -124,6 +124,6 @@ public class MaFrame extends Frame {
 	}
 	public void setTextLabel(String text)
 	{
-		
+		this.temperature.setText(text);
 	}
 }
