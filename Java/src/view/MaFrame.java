@@ -2,8 +2,11 @@ package view;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
+
 import javax.swing.*;
 
+import model.Consigne;
 import model.SerialTest;
 
 @SuppressWarnings("serial")
@@ -16,15 +19,18 @@ public class MaFrame extends JFrame {
 	static JDialog jdialog;
 	static JDialog dialoguedeux;
 	private JLabel temperature, temperatureext, pointrosee, alarme;
+	private JLabel consigne;
 	static Button more, less, valider;
 	static TextArea text;
+	private Consigne consign = new Consigne();
 
 	public void affichelaJFrame(SerialTest serialtest) { // affiche la frame
-
+		
 		this.temperature = new JLabel("Voici donc la température actuelle");
 		this.temperatureext = new JLabel("Voici donc la temperature exterieure");
 		this.pointrosee = new JLabel("Voici le seuil limite en-dessous duquel de la condensation apparaitrait");
-		this.alarme = new JLabel("ALERTE ALERTE ALERTE !!!!");
+		this.alarme = new JLabel("ALERTE ALERTE ALERTE !!!! /n Risque de condensation, augmenter la consigne");
+		this.consigne = new JLabel(Integer.toString(this.consign.getConsign()));
 		JFrame main = new JFrame("Interface de gestion du Frigo");
 		more = new Button("+");
 		less = new Button("-");
@@ -36,11 +42,15 @@ public class MaFrame extends JFrame {
 		pane.add(temperature);
 		pane.add(temperatureext);
 		pane.add(pointrosee);
+		if (this.inputarduinoquatre == true) {
+			pane.add(alarme);
+		}
 
 		// Mettre les bouttons et la zone de texte sur la fenêtre
 		pane.add(more);
 		pane.add(less);
 		pane.add(text);
+		pane.add(consigne);
 		pane.add(valider);
 
 		// set up de la fenêtre puis affichage
@@ -48,6 +58,38 @@ public class MaFrame extends JFrame {
 		main.pack();
 		main.setLocationRelativeTo(null);
 		main.setVisible(true);
+		
+		//création des évênements des boutons +/-
+		more.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				try {
+					consign.addOneConsign();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		less.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				try {
+					consign.removeOneConsign();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		valider.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				try {
+					consign.alterConsign(text.getText());
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
 	}
 
 	public void setTextLabel(String text) {
