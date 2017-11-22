@@ -21,12 +21,22 @@ public class SerialTest implements SerialPortEventListener {
 	private BufferedReader input;
 	@SuppressWarnings("unused")
 	private OutputStream output;
+	public String temperature;
+	public String temperatureext;
+	public String pointrosee;
+	public String alerte;
 	private static final int TIME_OUT = 2000;
 	private static final int DATA_RATE = 9600;
 
-	public synchronized void run(MaFrame frame) { // lance la frame
+	public void run(MaFrame frame) { // lance la frame
 		this.frame = frame;
-		frame.setInputArduino(this.inputLines[1]);
+		SerialPortEvent serialevent = new SerialPortEvent(this.serialPort, 0, true, false);
+		this.serialEvent(serialevent);
+		System.out.println(this.temperatureext);
+		frame.setInputArduino(this.temperature);
+		frame.setInputArduinodeux(this.temperatureext);
+		frame.setInputArduinotrois(this.pointrosee);
+		
 		frame.affichelaJFrame(this);
 	}
 
@@ -80,12 +90,26 @@ public class SerialTest implements SerialPortEventListener {
 		if (oEvent.getEventType() == SerialPortEvent.DATA_AVAILABLE) {
 			try {
 				if (input.ready()) {
-					this.inputLines = new String[5];
-					for (int i = 0; i < 5; i++) {
+					this.inputLines = new String[4];
+					for (int i = 0; i < 4; i++) {
 						this.setInputLine(input.readLine(), i);
+						if (i == 0){
+							this.temperature = this.inputLines[i];
+						}
+						else if(i == 1){
+							this.temperatureext = this.inputLines[i];
+						}
+						else if(i == 2){
+							this.pointrosee = this.inputLines[i];
+						}
+						else{
+							this.alerte = this.inputLines[i];
+						}
 					}
-					System.out.println(this.inputLines[0]+"\n"+this.inputLines[1]+"\n"+this.inputLines[2]+"\n"+this.inputLines[3]+"\n"+this.inputLines[4]);
-					this.frame.setTextLabel(this.inputLines[1]);
+					System.out.println(this.temperature+"\n"+this.temperatureext+"\n"+this.pointrosee+"\n"+this.alerte+"\n");
+					this.frame.setTextLabel(this.temperature);
+					this.frame.setTextLabeldeux(this.temperatureext);
+					this.frame.setTextLabelTrois(this.pointrosee);
 					this.deleteValuesInputLines();
 				}
 
@@ -100,6 +124,6 @@ public class SerialTest implements SerialPortEventListener {
 	}
 
 	public void deleteValuesInputLines() {
-		this.inputLines = new String[5];
+		this.inputLines = new String[4];
 	}
 }

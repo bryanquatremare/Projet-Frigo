@@ -7,118 +7,67 @@ import javax.swing.*;
 import model.SerialTest;
 
 @SuppressWarnings("serial")
-public class MaFrame extends Frame {
+public class MaFrame extends JFrame {
 
 	private String inputarduino;
-	static JFrame frame;
+	private String inputarduinodeux;
+	private String inputarduinotrois;
 	static JDialog jdialog;
 	static JDialog dialoguedeux;
-	private JLabel temperature;
-	static Button more;
-	static Button less;
+	private JLabel temperature, temperatureext, pointrosee;
+	static Button more, less, valider;
 	static TextArea text;
 
 	public void affichelaJFrame(SerialTest serialtest) { // affiche la frame
 
 		this.temperature = new JLabel("Voici donc la température actuelle");
-
-		frame = new JFrame("Interface de gestion du Frigo");
+		this.temperatureext = new JLabel("Voici donc la temperature exterieure");
+		this.pointrosee = new JLabel("Voici le seuil limite en-dessous duquel de la condensation apparaitrait");
+		JFrame main = new JFrame("Interface de gestion du Frigo");
 		more = new Button("+");
 		less = new Button("-");
-		text = new TextArea(1,4);
-		frame.add(temperature);
-		// preparer les dialogues (listener)
-		jdialog = new JDialog(frame, "Bonjour", true);
-		dialoguedeux = new JDialog(frame, "La bonne journée", true);
-
-		// ajouter un listeneur de feunaitre
-		jdialog.addWindowListener(new WindowAdapter() {
-			public void windowClosed(WindowEvent e) {
-				System.out.println("JDialog fenêtre en cours de fermeture");
-			}
-
-			public void windowClosing(WindowEvent e) {
-				System.out.println("Dialogue numéro un fermé");
-			}
-		});
-
-		dialoguedeux.addWindowListener(new WindowAdapter() {
-			public void windowClosed(WindowEvent e) {
-				System.out.println("Fenêtre Fermée");
-			}
-
-			public void windowClosing(WindowEvent e) {
-				System.out.println("Dialogue numéro deux fermé");
-			}
-		});
-
-		// ajouter un listeneur de composant
-		jdialog.addComponentListener(new ComponentListener() {
-			public void componentHidden(ComponentEvent e) {
-				System.out.println("Dialogue Fermé");
-			}
-
-			public void componentMoved(ComponentEvent e) {
-				System.out.println("Dialogue Bougé");
-			}
-
-			public void componentResized(ComponentEvent e) {
-				System.out.println("Taille du dialogue modifié");
-			}
-
-			public void componentShown(ComponentEvent e) {
-				System.out.println("Dialogue Ouvert");
-			}
-		});
-
-		dialoguedeux.addComponentListener(new ComponentListener() {
-			public void componentHidden(ComponentEvent e) {
-				System.out.println("Dialogue Fermé");
-			}
-
-			public void componentMoved(ComponentEvent e) {
-				System.out.println("Dialogue Bougé");
-			}
-
-			public void componentResized(ComponentEvent e) {
-				System.out.println("Taille du dialogue modifié");
-			}
-
-			public void componentShown(ComponentEvent e) {
-				System.out.println("Dialogue Ouvert");
-			}
-		});
-
-		JButton montreledialoguePrevu = new JButton("Afficher Température extérieure");
-		montreledialoguePrevu.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				dialoguedeux.setLocationRelativeTo(frame);
-				dialoguedeux.setSize(300, 200);
-				dialoguedeux.setVisible(true);
-			}
-		});
+		text = new TextArea(1, 4);
+		JPanel pane = new JPanel(new GridLayout(0, 1));
+		main.setLayout(new GridLayout(0, 1));
+		main.add(pane);
+		pane.add(temperature);
+		pane.add(temperatureext);
+		pane.add(pointrosee);
 
 		// Mettre les bouttons et la zone de texte sur la fenêtre
-		frame.getContentPane().setLayout(new FlowLayout());
-		frame.add(montreledialoguePrevu);
-		frame.add(more);
-		frame.add(less);
-		frame.add(text);
+		pane.add(more);
+		pane.add(less);
+		pane.add(text);
 
 		// set up de la fenêtre puis affichage
-		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		frame.setPreferredSize(new Dimension(600, 400));
-		frame.pack();
-		frame.setLocationRelativeTo(null);
-		frame.setVisible(true);
+		main.setPreferredSize(new Dimension(600, 400));
+		main.pack();
+		main.setLocationRelativeTo(null);
+		main.setVisible(true);
 	}
 
 	public void setTextLabel(String text) {
 		this.temperature.setText(text);
 	}
 
+	public void setTextLabeldeux(String text) {
+		this.temperatureext.setText(text);
+	}
+
+	public void setTextLabelTrois(String text) {
+		this.pointrosee.setText(text);
+	}
+
 	public void setInputArduino(String text) {
 		this.inputarduino = text;
+	}
+
+	public void setInputArduinodeux(String text) {
+		this.inputarduinodeux = text;
+	}
+
+	public void setInputArduinotrois(String text) {
+		this.inputarduinotrois = text;
 	}
 
 	public String getInputArduino() {
