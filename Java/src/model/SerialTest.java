@@ -16,7 +16,7 @@ public class SerialTest implements SerialPortEventListener {
 	private String[] inputLines;
 	private MaFrame frame;
 	SerialPort serialPort; // port de connexion
-	private static final String PORT_NAMES[] = { "COM12" }; // nom du port
+	private static final String PORT_NAMES[] = {getPort()}; // nom du port
 
 	private BufferedReader input;
 	@SuppressWarnings("unused")
@@ -36,11 +36,31 @@ public class SerialTest implements SerialPortEventListener {
 		frame.setInputArduino(this.temperature);
 		frame.setInputArduinodeux(this.temperatureext);
 		frame.setInputArduinotrois(this.pointrosee);
-		
+
 		frame.affichelaJFrame(this);
 	}
 
+	public static String getPort() {
+		CommPortIdentifier serialPort;
+
+		Enumeration enumComm;
+
+		enumComm = CommPortIdentifier.getPortIdentifiers();
+
+		while (enumComm.hasMoreElements()) {
+
+			serialPort = (CommPortIdentifier) enumComm.nextElement();
+
+			if (serialPort.getPortType() == CommPortIdentifier.PORT_SERIAL) {
+				return serialPort.getName().toString();
+			}
+		}
+		return "Aucun port detecte, essayez de rebrancher votre arduino";
+
+	}
+
 	public void initialize() { // initialisation de la connexion
+
 		CommPortIdentifier portId = null;
 		@SuppressWarnings("rawtypes")
 		Enumeration portEnum = CommPortIdentifier.getPortIdentifiers();
@@ -93,20 +113,18 @@ public class SerialTest implements SerialPortEventListener {
 					this.inputLines = new String[4];
 					for (int i = 0; i < 4; i++) {
 						this.setInputLine(input.readLine(), i);
-						if (i == 0){
+						if (i == 0) {
 							this.temperature = this.inputLines[i];
-						}
-						else if(i == 1){
+						} else if (i == 1) {
 							this.temperatureext = this.inputLines[i];
-						}
-						else if(i == 2){
+						} else if (i == 2) {
 							this.pointrosee = this.inputLines[i];
-						}
-						else{
+						} else {
 							this.alerte = this.inputLines[i];
 						}
 					}
-					System.out.println(this.temperature+"\n"+this.temperatureext+"\n"+this.pointrosee+"\n"+this.alerte+"\n");
+					System.out.println(this.temperature + "\n" + this.temperatureext + "\n" + this.pointrosee + "\n"
+							+ this.alerte + "\n");
 					this.frame.setTextLabel(this.temperature);
 					this.frame.setTextLabeldeux(this.temperatureext);
 					this.frame.setTextLabelTrois(this.pointrosee);
