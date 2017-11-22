@@ -1,9 +1,11 @@
 #include "DHT.h"
 
-#define DHTPIN 2
+#define DHTPINEXT 2
+#define DHTPININT 4
 #define PELTIERPIN 3
 
-DHT dht(DHTPIN, DHT22); // initializing DHT sensor
+DHT dhtint(DHTPININT, DHT22); // initializing intern DHT sensor
+DHT dhtext(DHTPINEXT, DHT22); // initializing extern DHT sensor
 
 // initializing setpoint as global variable because we have to initialise it at 0 but not have to reset at every loop
 int cons = 30;
@@ -11,13 +13,16 @@ int cons = 30;
 void setup()
 {
     Serial.begin(9600);
-    dht.begin();
+    dhtint.begin();
+    dhtext.begin();
 }
 
 void loop()
 {
     float hum = 0;
-    float temp = 0;
+    float tempint = 0;
+    float tempext = 0;
+    float huminu = 0;
     float poro = 0;
     boolean alerte = false;
     
@@ -27,15 +32,17 @@ void loop()
         peltier(cons);
     }
     
-    sensor(&hum, &temp);
-    poro = magnus(temp, hum);
-    if(temp <= poro)
+    sensor(&hum, &tempint, "inte");
+    sensor(&huminu, &tempext, "exte");
+    poro = magnus(tempint, hum);
+    if(tempint <= poro)
         alerte = true;
     
     //Serial.println(cons);
     Serial.print("Temperature interieure ");
-    Serial.println(temp);
-    Serial.println("Temperature exterieure: capteur pas implemente");
+    Serial.println(tempint);
+    Serial.print("Temperature exterieure");
+    Serial.println(tempext);
     Serial.print("Point de rosee ");
     Serial.println(poro);
     Serial.print("Alerte condensation ");
@@ -85,15 +92,27 @@ int consigne()
     return cons;
 }
 
-void sensor(float *hum, float *temp)
+void sensor(float *hum, float *temp, String capt)
 {
-    *hum = dht.readHumidity(); // reading the humidity from the sensor
-    *temp = dht.readTemperature(); // reading the temperature from the sensor
-
-    if (isnan(*hum) || isnan(*temp)) // checking if read failed
+  
+    if(capt.equals("inte"))
     {
-      Serial.println("Impossible de se connecter au capteur DHT22!!!");
-      return;
+        *hum = dhtint.readHumidity(); // reading the humidity from the sensor
+        *temp = dhtint.readTemperature(); // reading the temperature from the sensor
+
+        if (isnan(*hum) || isnan(*temp)) // checking if read failed
+        {
+            Serial.println("Impossible de se connecter au capteur DHT22 interieur!!!");
+            return;
+        }
+    }
+    else if(capt == "exte")
+    {
+         *temp = dhtext.readTemperature();
+         if(isnan(*temp))
+         {
+              Serial.println("Impossible de se connecter au capteur DHT22 exterieur!!!");
+         }
     }
       /* Debug
       Serial.print("Humidité: ");
