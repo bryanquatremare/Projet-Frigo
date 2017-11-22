@@ -20,19 +20,19 @@ public class Consigne {
 		int i = Integer.parseInt(test);
 		if (i >= 15 && i <= 30) {
 			setConsign(i);
-			serial.writeData(Integer.toString(getConsign()));
+//			serial.writeData(Integer.toString(getConsign()));
 		}
 	}
 	public void addOneConsign() throws IOException {
 		if (getConsign() < 30) {
 			setConsign(getConsign()+1);
-			serial.writeData("+");;
+//			serial.writeData("+");;
 		}
 	}
 	public void removeOneConsign() throws IOException {
 		if (getConsign() > 15) {
 			setConsign(getConsign()-1);
-			serial.writeData("-");
+//			serial.writeData("-");
 		}
 	}
 }
