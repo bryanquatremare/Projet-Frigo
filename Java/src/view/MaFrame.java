@@ -12,9 +12,10 @@ public class MaFrame extends JFrame {
 	private String inputarduino;
 	private String inputarduinodeux;
 	private String inputarduinotrois;
+	private Boolean inputarduinoquatre;
 	static JDialog jdialog;
 	static JDialog dialoguedeux;
-	private JLabel temperature, temperatureext, pointrosee;
+	private JLabel temperature, temperatureext, pointrosee, alarme;
 	static Button more, less, valider;
 	static TextArea text;
 
@@ -23,10 +24,12 @@ public class MaFrame extends JFrame {
 		this.temperature = new JLabel("Voici donc la température actuelle");
 		this.temperatureext = new JLabel("Voici donc la temperature exterieure");
 		this.pointrosee = new JLabel("Voici le seuil limite en-dessous duquel de la condensation apparaitrait");
+		this.alarme = new JLabel("ALERTE ALERTE ALERTE !!!!");
 		JFrame main = new JFrame("Interface de gestion du Frigo");
 		more = new Button("+");
 		less = new Button("-");
 		text = new TextArea(1, 4);
+		valider = new Button("Valider");
 		JPanel pane = new JPanel(new GridLayout(0, 1));
 		main.setLayout(new GridLayout(0, 1));
 		main.add(pane);
@@ -38,6 +41,7 @@ public class MaFrame extends JFrame {
 		pane.add(more);
 		pane.add(less);
 		pane.add(text);
+		pane.add(valider);
 
 		// set up de la fenêtre puis affichage
 		main.setPreferredSize(new Dimension(600, 400));
@@ -68,6 +72,10 @@ public class MaFrame extends JFrame {
 
 	public void setInputArduinotrois(String text) {
 		this.inputarduinotrois = text;
+	}
+	
+	public void setInputArduinoquatre(Boolean bool) {
+		this.inputarduinoquatre = bool;
 	}
 
 	public String getInputArduino() {

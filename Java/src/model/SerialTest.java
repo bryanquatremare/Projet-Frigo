@@ -110,6 +110,7 @@ public class SerialTest implements SerialPortEventListener {
 					this.frame.setTextLabel(this.temperature);
 					this.frame.setTextLabeldeux(this.temperatureext);
 					this.frame.setTextLabelTrois(this.pointrosee);
+					this.frame.setInputArduinoquatre(Boolean.parseBoolean(this.alerte));
 					this.deleteValuesInputLines();
 				}
 
