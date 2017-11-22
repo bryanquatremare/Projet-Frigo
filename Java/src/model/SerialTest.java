@@ -26,7 +26,7 @@ public class SerialTest implements SerialPortEventListener {
 
 	public synchronized void run(MaFrame frame) { // lance la frame
 		this.frame = frame;
-		frame.setInputArduino(this.getInputLine(1));
+		frame.setInputArduino(this.inputLines[1]);
 		frame.affichelaJFrame(this);
 	}
 
@@ -85,17 +85,13 @@ public class SerialTest implements SerialPortEventListener {
 						this.setInputLine(input.readLine(), i);
 					}
 					System.out.println(this.inputLines[0]+"\n"+this.inputLines[1]+"\n"+this.inputLines[2]+"\n"+this.inputLines[3]+"\n"+this.inputLines[4]);
-					this.frame.setTextLabel(this.getInputLine(1));
+					this.frame.setTextLabel(this.inputLines[1]);
 					this.deleteValuesInputLines();
 				}
 
 			} catch (Exception e) {
 			}
 		}
-	}
-
-	public String getInputLine(int i) { // récupérer la ligne d'input
-		return this.inputLines[i];
 	}
 
 	public void setInputLine(String inputLine, int i) { // changer la ligne
