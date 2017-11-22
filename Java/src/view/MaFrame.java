@@ -14,12 +14,18 @@ public class MaFrame extends Frame {
 	static JDialog jdialog;
 	static JDialog dialoguedeux;
 	private JLabel temperature;
+	static Button more;
+	static Button less;
+	static TextArea text;
 
 	public void affichelaJFrame(SerialTest serialtest) { // affiche la frame
 
 		this.temperature = new JLabel("Voici donc la température actuelle");
 
 		frame = new JFrame("Interface de gestion du Frigo");
+		more = new Button("+");
+		less = new Button("-");
+		text = new TextArea(1,4);
 		frame.add(temperature);
 		// preparer les dialogues (listener)
 		jdialog = new JDialog(frame, "Bonjour", true);
@@ -92,9 +98,12 @@ public class MaFrame extends Frame {
 			}
 		});
 
-		// Mettre les bouttons sur la fenêtre
+		// Mettre les bouttons et la zone de texte sur la fenêtre
 		frame.getContentPane().setLayout(new FlowLayout());
 		frame.add(montreledialoguePrevu);
+		frame.add(more);
+		frame.add(less);
+		frame.add(text);
 
 		// set up de la fenêtre puis affichage
 		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
