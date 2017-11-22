@@ -6,7 +6,7 @@
 DHT dht(DHTPIN, DHT22); // initializing DHT sensor
 
 // initializing setpoint as global variable because we have to initialise it at 0 but not have to reset at every loop
-int cons = 25;
+int cons = 30;
 
 void setup()
 {
@@ -32,9 +32,13 @@ void loop()
     if(temp <= poro)
         alerte = true;
     
-    Serial.println(cons);
+    //Serial.println(cons);
+    Serial.print("Temperature interieure ");
     Serial.println(temp);
+    Serial.println("Temperature exterieure: capteur pas implemente");
+    Serial.print("Point de rosee ");
     Serial.println(poro);
+    Serial.print("Alerte condensation ");
     Serial.println(alerte);
     Serial.println("");
     delay(2000);
