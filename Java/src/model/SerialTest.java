@@ -1,6 +1,7 @@
 package model;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import gnu.io.CommPortIdentifier;
@@ -144,5 +145,16 @@ public class SerialTest implements SerialPortEventListener {
 
 	public void deleteValuesInputLines() {
 		this.inputLines = new String[4];
+	}
+	public void writeData(String output) throws IOException {
+		int a = output.length();
+		char[] outputchar = new char[a];
+		byte[] outputByte = new byte[a];
+		
+		
+		for(int i = 0; i<a;i++) {
+		outputByte[i] = (byte) outputchar[i];	
+		this.output.write(outputByte[i]);
+		}
 	}
 }

@@ -12,20 +12,23 @@ import model.SerialTest;
 @SuppressWarnings("serial")
 public class MaFrame extends JFrame {
 
+	// déclaration des variables
 	private String inputarduino;
 	private String inputarduinodeux;
 	private String inputarduinotrois;
 	private Boolean inputarduinoquatre;
-	static JDialog jdialog;
-	static JDialog dialoguedeux;
-	private JLabel temperature, temperatureext, pointrosee, alarme;
-	private JLabel consigne;
+	// déclaration des éléments de l'interface + l'interface
+	static JDialog jdialog; // boite de dilogue (générale)
+	static JDialog dialoguedeux; // boite de dialogue
+	private JLabel temperature, temperatureext, pointrosee, alarme; //Label (zone de texte simple)
+	private JLabel consigne; // Label (consigne
 	static Button more, less, valider;
 	static TextArea text;
 	private Consigne consign = new Consigne();
 
 	public void affichelaJFrame(SerialTest serialtest) { // affiche la frame
 		
+		// instancie les éléments
 		this.temperature = new JLabel("Voici donc la température actuelle");
 		this.temperatureext = new JLabel("Voici donc la temperature exterieure");
 		this.pointrosee = new JLabel("Voici le seuil limite en-dessous duquel de la condensation apparaitrait");
