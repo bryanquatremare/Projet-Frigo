@@ -20,7 +20,6 @@ public class SerialTest implements SerialPortEventListener {
 	private static final String PORT_NAMES[] = {getPort()}; // nom du port
 
 	private BufferedReader input;
-	@SuppressWarnings("unused")
 	private OutputStream output;
 	private Consigne consign;
 	public String temperature;
@@ -44,6 +43,7 @@ public class SerialTest implements SerialPortEventListener {
 	public static String getPort() {
 		CommPortIdentifier serialPort;
 
+		@SuppressWarnings("rawtypes")
 		Enumeration enumComm;
 
 		enumComm = CommPortIdentifier.getPortIdentifiers();
@@ -89,7 +89,7 @@ public class SerialTest implements SerialPortEventListener {
 			// open stream
 			input = new BufferedReader(new InputStreamReader(serialPort.getInputStream()));
 			output = serialPort.getOutputStream();
-			this.writeData(this.consign.getReponse());
+			this.writeData(this.consign.getConsign());
 
 			serialPort.addEventListener(this);
 			serialPort.notifyOnDataAvailable(true);
@@ -147,18 +147,9 @@ public class SerialTest implements SerialPortEventListener {
 	public void deleteValuesInputLines() {
 		this.inputLines = new String[4];
 	}
-	public void writeData(String consign) throws IOException {
-		int a = consign.length();
-		System.out.print("consigne = " + consign + " ; ");
-		char[] outputchar = new char[a];
-		byte[] outputByte = new byte[a];
-		
-		for(int i = 0; i<a;i++) {
-		outputchar[i] = consign.charAt(i);
-		outputByte[i] = (byte) outputchar[i];
-		output.write(outputByte[i]);
-		System.out.print("byte = " + outputByte[i] + "\n");
-		output.flush();
-		}
+	public void writeData(int consigne) throws IOException {
+		System.out.print("consigne = " + consigne + " ; ");
+		output.write(consigne);
+		System.out.print("byte = " + consigne + "\n");
 	}
 }

@@ -12,11 +12,11 @@ public class Consigne {
 	}
 
 	public int getConsign() {
-		return consigne;
+		return this.consigne;
 	}
 
 	public String getReponse() {
-		return reponse;
+		return this.reponse;
 	}
 
 	public void setReponse(String rep) {
@@ -30,7 +30,7 @@ public class Consigne {
 	public void alterConsign(String test) throws IOException {
 		int i = Integer.parseInt(test);
 		if (i >= 15 && i <= 30) {
-			setConsign(i);
+			this.setConsign(i);
 			this.reponse = Integer.toString(i);
 		} else {
 			this.reponse = null;
@@ -38,16 +38,18 @@ public class Consigne {
 	}
 
 	public void addOneConsign() throws IOException {
-		if (getConsign() < 30) {
-			setConsign(getConsign() + 1);
-			this.reponse = "+";
+		if (this.getConsign() >= 30) {
+			this.setConsign(this.getConsign() - 1);
 		}
+		this.reponse = "+";
+		this.setConsign(this.getConsign() + 1);
 	}
 
 	public void removeOneConsign() throws IOException {
-		if (getConsign() > 15) {
-			setConsign(getConsign() - 1);
-			this.reponse = "-";
+		if (this.getConsign() <= 15) {
+			this.setConsign(this.getConsign() + 1);
 		}
+		this.reponse = "-";
+		this.setConsign(this.getConsign()-1);
 	}
 }

@@ -96,7 +96,7 @@ public class MaFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					consign.addOneConsign();
-					serialtest.writeData(consign.getReponse());
+					serialtest.writeData(consign.getConsign());
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -107,7 +107,7 @@ public class MaFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					consign.removeOneConsign();
-					serialtest.writeData(consign.getReponse());
+					serialtest.writeData(consign.getConsign());
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -118,7 +118,7 @@ public class MaFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					consign.alterConsign(text.getText());
-					serialtest.writeData(consign.getReponse());
+					serialtest.writeData(consign.getConsign());
 
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
