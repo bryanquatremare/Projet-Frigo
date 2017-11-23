@@ -1,5 +1,5 @@
 package view;
-
+import java.nio.charset.StandardCharsets;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
@@ -8,6 +8,7 @@ import javax.swing.*;
 
 import model.Consigne;
 import model.SerialTest;
+
 
 @SuppressWarnings("serial")
 public class MaFrame extends JFrame {
@@ -39,7 +40,8 @@ public class MaFrame extends JFrame {
 	public int[] inttemps;
 	public int[] exttemps;
 
-	public MaFrame() {
+	public MaFrame(){
+		StandardCharsets.UTF_8.name();
 		this.i = 0;
 		this.inttemps = new int[23];
 		this.exttemps = new int[23];
