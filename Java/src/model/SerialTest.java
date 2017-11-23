@@ -22,6 +22,7 @@ public class SerialTest implements SerialPortEventListener {
 	private BufferedReader input;
 	@SuppressWarnings("unused")
 	private OutputStream output;
+	private Consigne consign;
 	public String temperature;
 	public String temperatureext;
 	public String pointrosee;
@@ -37,7 +38,6 @@ public class SerialTest implements SerialPortEventListener {
 		frame.setInputArduino(this.temperature);
 		frame.setInputArduinodeux(this.temperatureext);
 		frame.setInputArduinotrois(this.pointrosee);
-
 		frame.affichelaJFrame(this);
 	}
 
@@ -89,6 +89,7 @@ public class SerialTest implements SerialPortEventListener {
 			// open stream
 			input = new BufferedReader(new InputStreamReader(serialPort.getInputStream()));
 			output = serialPort.getOutputStream();
+			this.writeData(this.consign.getReponse());
 
 			serialPort.addEventListener(this);
 			serialPort.notifyOnDataAvailable(true);
@@ -146,15 +147,18 @@ public class SerialTest implements SerialPortEventListener {
 	public void deleteValuesInputLines() {
 		this.inputLines = new String[4];
 	}
-	public void writeData(String output) throws IOException {
-		int a = output.length();
+	public void writeData(String consign) throws IOException {
+		int a = consign.length();
+		System.out.print("consigne = " + consign + " ; ");
 		char[] outputchar = new char[a];
 		byte[] outputByte = new byte[a];
 		
-		
 		for(int i = 0; i<a;i++) {
-		outputByte[i] = (byte) outputchar[i];	
-		this.output.write(outputByte[i]);
+		outputchar[i] = consign.charAt(i);
+		outputByte[i] = (byte) outputchar[i];
+		output.write(outputByte[i]);
+		System.out.print("byte = " + outputByte[i] + "\n");
+		output.flush();
 		}
 	}
 }

@@ -3,7 +3,7 @@ package model;
 import java.io.IOException;
 
 public class Consigne {
-	private SerialTest serial;
+	private String reponse;
 
 	private int consigne = 20;
 	
@@ -13,6 +13,12 @@ public class Consigne {
 	public int getConsign() {
 		return consigne;
 	}
+	public String getReponse() {
+		return reponse;
+	}
+	public void setReponse(String rep) {
+		this.reponse = rep;
+	}
 	public void setConsign(int rep) {
 		this.consigne = rep;
 	}
@@ -20,19 +26,21 @@ public class Consigne {
 		int i = Integer.parseInt(test);
 		if (i >= 15 && i <= 30) {
 			setConsign(i);
-//			serial.writeData(Integer.toString(getConsign()));
+			this.reponse=Integer.toString(i);
+		} else {
+			this.reponse=null;
 		}
 	}
 	public void addOneConsign() throws IOException {
 		if (getConsign() < 30) {
 			setConsign(getConsign()+1);
-//			serial.writeData("+");;
+			this.reponse="+";
 		}
 	}
 	public void removeOneConsign() throws IOException {
 		if (getConsign() > 15) {
 			setConsign(getConsign()-1);
-//			serial.writeData("-");
+			this.reponse ="-";
 		}
 	}
 }

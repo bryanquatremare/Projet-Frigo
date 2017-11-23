@@ -17,11 +17,12 @@ public class MaFrame extends JFrame {
 	private String inputarduinodeux;
 	private String inputarduinotrois;
 	private Boolean inputarduinoquatre;
+	private String inputconsign;
 	// déclaration des éléments de l'interface + l'interface
 	static JDialog jdialog; // boite de dilogue (générale)
 	static JDialog dialoguedeux; // boite de dialogue
 	private JLabel temperature, temperatureext, pointrosee, alarme; //Label (zone de texte simple)
-	private JLabel consigne; // Label (consigne
+	private JLabel consigne; // Label (consigne)
 	static Button more, less, valider;
 	static TextArea text;
 	private Consigne consign = new Consigne();
@@ -45,9 +46,9 @@ public class MaFrame extends JFrame {
 		pane.add(temperature);
 		pane.add(temperatureext);
 		pane.add(pointrosee);
-		if (this.inputarduinoquatre == true) {
-			pane.add(alarme);
-		}
+//		if (this.inputarduinoquatre == true) {
+//			pane.add(alarme);
+//		}
 
 		// Mettre les bouttons et la zone de texte sur la fenêtre
 		pane.add(more);
@@ -55,6 +56,13 @@ public class MaFrame extends JFrame {
 		pane.add(text);
 		pane.add(consigne);
 		pane.add(valider);
+		
+		main.addWindowListener(new WindowAdapter(){
+			public void windowClosing(WindowEvent e) {
+				SerialTest serial = new SerialTest();
+				serial.close();
+			}
+		});
 
 		// set up de la fenêtre puis affichage
 		main.setPreferredSize(new Dimension(600, 400));
@@ -67,6 +75,7 @@ public class MaFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					consign.addOneConsign();
+					serialtest.writeData(consign.getReponse());
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -77,6 +86,7 @@ public class MaFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					consign.removeOneConsign();
+					serialtest.writeData(consign.getReponse());
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -87,12 +97,17 @@ public class MaFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					consign.alterConsign(text.getText());
+					serialtest.writeData(consign.getReponse());
+					
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
 		});
+//		if (inputarduinoquatre == true) {
+//			pane.add(alarme);
+//		}
 	}
 
 	public void setTextLabel(String text) {
@@ -125,5 +140,8 @@ public class MaFrame extends JFrame {
 
 	public String getInputArduino() {
 		return this.inputarduino;
+	}
+	public void setInputConsign(String inputConsign) {
+		this.inputconsign = inputConsign;
 	}
 }
