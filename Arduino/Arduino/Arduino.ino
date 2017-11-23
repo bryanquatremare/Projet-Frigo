@@ -8,7 +8,7 @@ DHT dhtint(DHTPININT, DHT22); // initializing intern DHT sensor
 DHT dhtext(DHTPINEXT, DHT22); // initializing extern DHT sensor
 
 // initializing setpoint as global variable because we have to initialise it at 0 but not have to reset at every loop
-int cons = 30;
+int cons = 25;
 
 void setup()
 {
@@ -26,22 +26,23 @@ void loop()
     float poro = 0;
     boolean alerte = false;
     
-    if(Serial.available())
-    {
-        cons = consigne();
-        peltier(cons);
-    }
-    
     sensor(&hum, &tempint, "inte");
     sensor(&huminu, &tempext, "exte");
     poro = magnus(tempint, hum);
     if(tempint <= poro)
         alerte = true;
+
+    if(Serial.available())
+    {
+        // Debug Serial.println("If");
+        cons = consigne();
+        peltier(cons, tempint);
+    }
     
     //Serial.println(cons);
     Serial.print("Temperature interieure ");
     Serial.println(tempint);
-    Serial.print("Temperature exterieure");
+    Serial.print("Temperature exterieure ");
     Serial.println(tempext);
     Serial.print("Point de rosee ");
     Serial.println(poro);
@@ -52,26 +53,27 @@ void loop()
       
 }
 
-void peltier(char option)
+void peltier(char option, int temp)
 {
     int power = 0; //power level 0 to 99%
-    int peltier_level = map(power, 0, 99, 0, 255); //This is a value from 0 to 255 that actually controls the MOSFET
+    int peltier_level = 0;
     if(option == '+') 
-        power += 5;
+        power -= 10;
     else if(option == '-')
-        power -= 5;
+        power += 10;
     else if(option >= 0 && option <= 30)
-        power = map(option, 0, 99, 0, 30);
+        power = map(option, 25, 15, 0, 99);
 
     if(power > 99) power = 99;
     if(power < 0) power = 0;
 
-    peltier_level = map(power, 0, 99, 0, 255);
-    
+    peltier_level = map(power, 0, 99, 0, 255); //This is a value from 0 to 255 that actually controls the MOSFET
+
+    /*Debug
     Serial.print("Power=");
     Serial.println(power);
     Serial.print("PLevel=");
-    Serial.println(peltier_level);
+    Serial.println(peltier_level);*/
 
     analogWrite(PELTIERPIN, peltier_level); //Write this new value out to the port
 }
