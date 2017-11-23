@@ -8,7 +8,7 @@ DHT dhtint(DHTPININT, DHT22); // initializing intern DHT sensor
 DHT dhtext(DHTPINEXT, DHT22); // initializing extern DHT sensor
 
 // initializing setpoint as global variable because we have to initialise it at 0 but not have to reset at every loop
-int cons = 30;
+int cons = 25;
 
 void setup()
 {
@@ -61,19 +61,19 @@ void peltier(char option, int temp)
         power -= 10;
     else if(option == '-')
         power += 10;
-    else if(option >= 15 && option <= 25)
-        power = map(option, 0, 99, 25, 15);
+    else if(option >= 0 && option <= 30)
+        power = map(option, 25, 15, 0, 99);
 
     if(power > 99) power = 99;
     if(power < 0) power = 0;
 
     peltier_level = map(power, 0, 99, 0, 255); //This is a value from 0 to 255 that actually controls the MOSFET
 
-    //Debug
+    /*Debug
     Serial.print("Power=");
     Serial.println(power);
     Serial.print("PLevel=");
-    Serial.println(peltier_level);
+    Serial.println(peltier_level);*/
 
     analogWrite(PELTIERPIN, peltier_level); //Write this new value out to the port
 }
