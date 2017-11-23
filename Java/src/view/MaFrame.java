@@ -14,6 +14,7 @@ public class MaFrame extends JFrame {
 
 	// dï¿½claration des variables
 	private String inputarduino;
+	@SuppressWarnings("unused")
 	private String inputarduinodeux;
 	@SuppressWarnings("unused")
 	private String inputarduinotrois;
@@ -35,8 +36,8 @@ public class MaFrame extends JFrame {
 	static TextArea text;
 	private Consigne consign = new Consigne();
 
-	private int[] inttemps;
-	private int[] exttemps;
+	public int[] inttemps;
+	public int[] exttemps;
 
 	public MaFrame() {
 		this.i = 0;
@@ -47,9 +48,7 @@ public class MaFrame extends JFrame {
 	public void affichelaJFrame(SerialTest serialtest) { // affiche la frame
 
 		// instancie les ï¿½lï¿½ments
-		this.i += 1;
-		this.inttemps[this.i] = Integer.parseInt(inputarduino.substring(23, 24));
-		this.inttemps[this.i] = Integer.parseInt(inputarduinodeux.substring(23, 24));
+		
 		this.temperature = new JLabel("Voici donc la tempï¿½rature actuelle");
 		this.temperatureext = new JLabel("Voici donc la temperature exterieure");
 		this.pointrosee = new JLabel("Voici le seuil limite en-dessous duquel de la condensation apparaitrait");
@@ -85,8 +84,8 @@ public class MaFrame extends JFrame {
 			}
 		});
 
-		// set up de la fenï¿½tre puis affichage
-		main.setPreferredSize(new Dimension(600, 400));
+		// set up de la fenêtre puis affichage
+		main.setPreferredSize(new Dimension(1000, 800));
 		main.pack();
 		main.setLocationRelativeTo(null);
 		main.setVisible(true);
