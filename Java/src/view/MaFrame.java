@@ -12,7 +12,7 @@ import model.SerialTest;
 @SuppressWarnings("serial")
 public class MaFrame extends JFrame {
 
-	// déclaration des variables
+	// dï¿½claration des variables
 	private String inputarduino;
 	private String inputarduinodeux;
 	@SuppressWarnings("unused")
@@ -22,8 +22,8 @@ public class MaFrame extends JFrame {
 	@SuppressWarnings("unused")
 	private String inputconsign;
 	public int i;
-	// déclaration des éléments de l'interface + l'interface
-	static JDialog jdialog; // boite de dilogue (générale)
+	// dï¿½claration des ï¿½lï¿½ments de l'interface + l'interface
+	static JDialog jdialog; // boite de dilogue (gï¿½nï¿½rale)
 	static JDialog dialoguedeux; // boite de dialogue
 	@SuppressWarnings("unused")
 	private JLabel temperature, temperatureext, pointrosee, alarme; // Label
@@ -46,11 +46,11 @@ public class MaFrame extends JFrame {
 
 	public void affichelaJFrame(SerialTest serialtest) { // affiche la frame
 
-		// instancie les éléments
+		// instancie les ï¿½lï¿½ments
 		this.i += 1;
 		this.inttemps[this.i] = Integer.parseInt(inputarduino.substring(23, 24));
 		this.inttemps[this.i] = Integer.parseInt(inputarduinodeux.substring(23, 24));
-		this.temperature = new JLabel("Voici donc la température actuelle");
+		this.temperature = new JLabel("Voici donc la tempï¿½rature actuelle");
 		this.temperatureext = new JLabel("Voici donc la temperature exterieure");
 		this.pointrosee = new JLabel("Voici le seuil limite en-dessous duquel de la condensation apparaitrait");
 		this.alarme = new JLabel("ALERTE ALERTE ALERTE !!!! /n Risque de condensation, augmenter la consigne");
@@ -70,7 +70,7 @@ public class MaFrame extends JFrame {
 		// pane.add(alarme);
 		// }
 
-		// Mettre les bouttons et la zone de texte sur la fenêtre
+		// Mettre les bouttons et la zone de texte sur la fenï¿½tre
 		pane.add(more);
 		pane.add(less);
 		pane.add(text);
@@ -85,13 +85,13 @@ public class MaFrame extends JFrame {
 			}
 		});
 
-		// set up de la fenêtre puis affichage
+		// set up de la fenï¿½tre puis affichage
 		main.setPreferredSize(new Dimension(600, 400));
 		main.pack();
 		main.setLocationRelativeTo(null);
 		main.setVisible(true);
 
-		// création des évênements des boutons +/-
+		// crï¿½ation des ï¿½vï¿½nements des boutons +/-
 		more.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -203,7 +203,7 @@ public class MaFrame extends JFrame {
 				g.drawLine(48, i + 10, 52, i + 10);
 			}
 			g.setFont(new Font("Impact", Font.PLAIN, 15));
-			g.drawString("Température (en °C)", 10, 40);
+			g.drawString("Tempï¿½rature (en ï¿½C)", 10, 40);
 			g.drawString("Temps", 270, 600);
 			if (this.iterator == 1) {
 				g.setColor(Color.BLUE);
