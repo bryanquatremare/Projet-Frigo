@@ -12,14 +12,12 @@ import view.MaFrame;
 
 import java.util.Enumeration;
 
-import javax.swing.SwingUtilities;
-
 public class SerialTest implements SerialPortEventListener {
 
 	private String[] inputLines;
 	private MaFrame frame;
 	SerialPort serialPort; // port de connexion
-	private static final String PORT_NAMES[] = {getPort()}; // nom du port
+	private static final String PORT_NAMES[] = { getPort() }; // nom du port
 
 	private BufferedReader input;
 	private OutputStream output;
@@ -121,19 +119,18 @@ public class SerialTest implements SerialPortEventListener {
 							this.temperatureext = this.inputLines[i];
 						} else if (i == 2) {
 							this.pointrosee = this.inputLines[i];
-						} else if (i == 3){
+						} else if (i == 3) {
 							this.alerte = this.inputLines[i];
-						}
-						else {
+						} else {
 							this.affichageconsigne = this.inputLines[i];
 						}
 					}
 					System.out.println(this.temperature + "\n" + this.temperatureext + "\n" + this.pointrosee + "\n"
-							+ this.alerte + "\n" +this.affichageconsigne + "\n");
+							+ this.alerte + "\n" + this.affichageconsigne + "\n");
 					this.frame.setTextLabel(this.temperature);
 					this.frame.setTextLabeldeux(this.temperatureext);
 					this.frame.setTextLabelTrois(this.pointrosee);
-					
+
 					this.frame.setInputArduinoquatre(Boolean.parseBoolean(this.alerte));
 					this.frame.i += 1;
 					this.frame.inttemps[this.frame.i] = Integer.parseInt(this.temperature.substring(23, 24));
@@ -155,8 +152,9 @@ public class SerialTest implements SerialPortEventListener {
 	public void deleteValuesInputLines() {
 		this.inputLines = new String[5];
 	}
+
 	public void writeData(int consigne) throws IOException {
-		
+
 		System.out.print("consigne = " + consigne + " ; ");
 		output.write(consigne);
 		output.close();
