@@ -29,14 +29,14 @@ public class Consigne {
 
 	public void alterConsign(String test) throws IOException {
 		int i = Integer.parseInt(test);
-		if (i >= 15 && i <= 30) {
+		if (i >= 15 && i <= 25) {
 			this.setConsign(i);
 		} else {
 		}
 	}
 
 	public void addOneConsign() throws IOException {
-		if (this.getConsign() >= 30) {
+		if (this.getConsign() >= 25) {
 			this.setConsign(this.getConsign() - 1);
 		}
 		this.reponse = "+";

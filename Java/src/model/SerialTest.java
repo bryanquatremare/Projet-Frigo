@@ -158,7 +158,17 @@ public class SerialTest implements SerialPortEventListener {
 	public void writeData(int consigne) throws IOException {
 		
 		System.out.print("consigne = " + consigne + " ; ");
-		output.write(consigne);
+		String output1 = Integer.toString(consigne);
+		int a = output1.length();
+		char[] output2 = new char[a];
+		
+		for (int i = 0; i < a; i++) {
+		output2[i]=output1.charAt(i);
+		int ascii = (int) output2[i];
+		
+		output.write(ascii);
+		System.out.print("byte = " + ascii + "\n");
 		output.close();
+		}
 	}
 }

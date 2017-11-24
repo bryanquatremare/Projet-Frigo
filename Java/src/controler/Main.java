@@ -1,5 +1,6 @@
 package controler;
 
+import gnu.io.SerialPortEvent;
 import model.SerialTest;
 import view.MaFrame;
 
@@ -20,6 +21,6 @@ public class Main {
 		};
 		t.start();
 		main.run(maframe); // lance la frame avec un serialtest pour récupérer
-							// les infos de l'arduino
+		new SerialPortEvent(null, 0, false, false);			// les infos de l'arduino
 	}
 }
