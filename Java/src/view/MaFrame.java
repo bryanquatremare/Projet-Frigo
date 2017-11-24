@@ -23,6 +23,7 @@ public class MaFrame extends JFrame {
 	private Boolean inputarduinoquatre = false;
 	private String inputconsign = null;
 	public int i;
+	
 	// déclaration des éléments de l'interface + l'interface
 	static JDialog jdialog; // boite de dilogue (générale)
 	static JDialog dialoguedeux; // boite de dialogue

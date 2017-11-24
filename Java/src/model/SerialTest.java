@@ -156,6 +156,7 @@ public class SerialTest implements SerialPortEventListener {
 		this.inputLines = new String[5];
 	}
 	public void writeData(int consigne) throws IOException {
+		
 		System.out.print("consigne = " + consigne + " ; ");
 		output.write(consigne);
 		output.close();
