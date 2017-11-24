@@ -28,6 +28,7 @@ public class SerialTest implements SerialPortEventListener {
 	public String temperatureext;
 	public String pointrosee;
 	public String alerte;
+	public String affichageconsigne;
 	private static final int TIME_OUT = 2000;
 	private static final int DATA_RATE = 9600;
 
@@ -63,11 +64,9 @@ public class SerialTest implements SerialPortEventListener {
 	}
 
 	public void initialize() { // initialisation de la connexion
-
 		CommPortIdentifier portId = null;
 		@SuppressWarnings("rawtypes")
 		Enumeration portEnum = CommPortIdentifier.getPortIdentifiers();
-
 		while (portEnum.hasMoreElements()) {
 			CommPortIdentifier currPortId = (CommPortIdentifier) portEnum.nextElement();
 			for (String portName : PORT_NAMES) {
@@ -82,7 +81,6 @@ public class SerialTest implements SerialPortEventListener {
 			System.out.println("Erreur de port");
 			return;
 		}
-
 		try {
 			serialPort = (SerialPort) portId.open(this.getClass().getName(), TIME_OUT);
 			serialPort.setSerialPortParams(DATA_RATE, SerialPort.DATABITS_8, SerialPort.STOPBITS_1,
@@ -91,7 +89,6 @@ public class SerialTest implements SerialPortEventListener {
 			// open stream
 			input = new BufferedReader(new InputStreamReader(serialPort.getInputStream()));
 			output = serialPort.getOutputStream();
-			this.writeData(this.consign.getConsign());
 
 			serialPort.addEventListener(this);
 			serialPort.notifyOnDataAvailable(true);
@@ -100,10 +97,11 @@ public class SerialTest implements SerialPortEventListener {
 		}
 	}
 
-	public synchronized void close() { // fermer la connexion
+	public synchronized void close() throws IOException { // fermer la connexion
 		if (serialPort != null) {
 			serialPort.removeEventListener();
 			serialPort.close();
+			this.input.close();
 		}
 	}
 
@@ -114,8 +112,8 @@ public class SerialTest implements SerialPortEventListener {
 		if (oEvent.getEventType() == SerialPortEvent.DATA_AVAILABLE) {
 			try {
 				if (input.ready()) {
-					this.inputLines = new String[4];
-					for (int i = 0; i < 4; i++) {
+					this.inputLines = new String[5];
+					for (int i = 0; i < 5; i++) {
 						this.setInputLine(input.readLine(), i);
 						if (i == 0) {
 							this.temperature = this.inputLines[i];
@@ -123,22 +121,25 @@ public class SerialTest implements SerialPortEventListener {
 							this.temperatureext = this.inputLines[i];
 						} else if (i == 2) {
 							this.pointrosee = this.inputLines[i];
-						} else {
+						} else if (i == 3){
 							this.alerte = this.inputLines[i];
+						}
+						else {
+							this.affichageconsigne = this.inputLines[i];
 						}
 					}
 					System.out.println(this.temperature + "\n" + this.temperatureext + "\n" + this.pointrosee + "\n"
-							+ this.alerte + "\n");
+							+ this.alerte + "\n" +this.affichageconsigne + "\n");
 					this.frame.setTextLabel(this.temperature);
 					this.frame.setTextLabeldeux(this.temperatureext);
 					this.frame.setTextLabelTrois(this.pointrosee);
+					
 					this.frame.setInputArduinoquatre(Boolean.parseBoolean(this.alerte));
 					this.frame.i += 1;
 					this.frame.inttemps[this.frame.i] = Integer.parseInt(this.temperature.substring(23, 24));
 					this.frame.inttemps[this.frame.i] = Integer.parseInt(this.temperatureext.substring(23, 24));
 					this.deleteValuesInputLines();
-					this.frame.setVisible(false);
-					this.frame.setVisible(true);
+					this.writeData(this.consign.getConsign());
 				}
 
 			} catch (Exception e) {
@@ -152,12 +153,11 @@ public class SerialTest implements SerialPortEventListener {
 	}
 
 	public void deleteValuesInputLines() {
-		this.inputLines = new String[4];
+		this.inputLines = new String[5];
 	}
 	public void writeData(int consigne) throws IOException {
 		System.out.print("consigne = " + consigne + " ; ");
 		output.write(consigne);
-		System.out.print("byte = " + consigne + "\n");
 		output.close();
 	}
 }

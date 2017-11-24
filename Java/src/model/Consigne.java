@@ -31,9 +31,7 @@ public class Consigne {
 		int i = Integer.parseInt(test);
 		if (i >= 15 && i <= 30) {
 			this.setConsign(i);
-			this.reponse = Integer.toString(i);
 		} else {
-			this.reponse = null;
 		}
 	}
 

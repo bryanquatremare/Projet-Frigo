@@ -10,21 +10,21 @@ import model.Consigne;
 import model.SerialTest;
 
 
-@SuppressWarnings("serial")
 public class MaFrame extends JFrame {
 
-	// dï¿½claration des variables
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	// déclaration des variables
 	private String inputarduino = null;
-	@SuppressWarnings("unused")
 	private String inputarduinodeux = null;
-	@SuppressWarnings("unused")
 	private String inputarduinotrois = null;
 	private Boolean inputarduinoquatre = false;
-	@SuppressWarnings("unused")
 	private String inputconsign = null;
 	public int i;
-	// dï¿½claration des ï¿½lï¿½ments de l'interface + l'interface
-	static JDialog jdialog; // boite de dilogue (gï¿½nï¿½rale)
+	// déclaration des éléments de l'interface + l'interface
+	static JDialog jdialog; // boite de dilogue (générale)
 	static JDialog dialoguedeux; // boite de dialogue
 	private JLabel temperature, temperatureext, pointrosee, alarme; // Label
 																	// (zone de
@@ -46,8 +46,7 @@ public class MaFrame extends JFrame {
 	}
 
 	public void affichelaJFrame(SerialTest serialtest) { // affiche la frame
-
-		// instancie les ï¿½lï¿½ments
+		// instancie les éléments
 		boolean bool = this.inputarduinoquatre;
 		this.temperature = new JLabel(this.inputarduino);
 		this.temperatureext = new JLabel(this.inputarduinodeux);
@@ -121,9 +120,6 @@ public class MaFrame extends JFrame {
 				}
 			}
 		});
-		// if (inputarduinoquatre == true) {
-		// pane.add(alarme);
-		// }
 	}
 
 	public void setTextLabel(String text) {
@@ -198,7 +194,7 @@ public class MaFrame extends JFrame {
 				g.drawLine(48, i + 10, 52, i + 10);
 			}
 			g.setFont(new Font("Impact", Font.PLAIN, 15));
-			g.drawString("Tempï¿½rature (en ï¿½C)", 10, 40);
+			g.drawString("Température (en °C)", 10, 40);
 			g.drawString("Temps", 270, 600);
 			if (this.iterator == 1) {
 				g.setColor(Color.BLUE);
