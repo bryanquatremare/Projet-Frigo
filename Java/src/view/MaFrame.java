@@ -14,20 +14,18 @@ import model.SerialTest;
 public class MaFrame extends JFrame {
 
 	// dï¿½claration des variables
-	private String inputarduino;
+	private String inputarduino = null;
 	@SuppressWarnings("unused")
-	private String inputarduinodeux;
+	private String inputarduinodeux = null;
 	@SuppressWarnings("unused")
-	private String inputarduinotrois;
+	private String inputarduinotrois = null;
+	private Boolean inputarduinoquatre = false;
 	@SuppressWarnings("unused")
-	private Boolean inputarduinoquatre;
-	@SuppressWarnings("unused")
-	private String inputconsign;
+	private String inputconsign = null;
 	public int i;
 	// dï¿½claration des ï¿½lï¿½ments de l'interface + l'interface
 	static JDialog jdialog; // boite de dilogue (gï¿½nï¿½rale)
 	static JDialog dialoguedeux; // boite de dialogue
-	@SuppressWarnings("unused")
 	private JLabel temperature, temperatureext, pointrosee, alarme; // Label
 																	// (zone de
 																	// texte
@@ -50,11 +48,11 @@ public class MaFrame extends JFrame {
 	public void affichelaJFrame(SerialTest serialtest) { // affiche la frame
 
 		// instancie les ï¿½lï¿½ments
-		
-		this.temperature = new JLabel("Voici donc la tempï¿½rature actuelle");
-		this.temperatureext = new JLabel("Voici donc la temperature exterieure");
-		this.pointrosee = new JLabel("Voici le seuil limite en-dessous duquel de la condensation apparaitrait");
-		this.alarme = new JLabel("ALERTE ALERTE ALERTE !!!! /n Risque de condensation, augmenter la consigne");
+		boolean bool = this.inputarduinoquatre;
+		this.temperature = new JLabel(this.inputarduino);
+		this.temperatureext = new JLabel(this.inputarduinodeux);
+		this.pointrosee = new JLabel(this.inputarduinotrois);
+		this.alarme = new JLabel("ALERTE ALERTE ALERTE !!!! \n Risque de condensation, augmenter la consigne");
 		this.consigne = new JLabel(Integer.toString(this.consign.getConsign()));
 		JFrame main = new JFrame("Interface de gestion du Frigo");
 		more = new Button("+");
@@ -67,11 +65,12 @@ public class MaFrame extends JFrame {
 		pane.add(temperature);
 		pane.add(temperatureext);
 		pane.add(pointrosee);
-		// if (this.inputarduinoquatre == true) {
-		// pane.add(alarme);
-		// }
-
-		// Mettre les bouttons et la zone de texte sur la fenï¿½tre
+		
+		if(bool == true){
+			pane.add(alarme);
+		}	
+		
+		// Mettre les bouttons et la zone de texte sur la fenêtre
 		pane.add(more);
 		pane.add(less);
 		pane.add(text);
@@ -79,25 +78,19 @@ public class MaFrame extends JFrame {
 		pane.add(valider);
 		main.add(new Canva(this.i, this.exttemps, this.inttemps));
 
-		main.addWindowListener(new WindowAdapter() {
-			public void windowClosing(WindowEvent e) {
-				SerialTest serial = new SerialTest();
-				serial.close();
-			}
-		});
-
 		// set up de la fenêtre puis affichage
 		main.setPreferredSize(new Dimension(1000, 800));
 		main.pack();
 		main.setLocationRelativeTo(null);
 		main.setVisible(true);
 
-		// crï¿½ation des ï¿½vï¿½nements des boutons +/-
+		// création des évenements des boutons +/-
 		more.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					consign.addOneConsign();
 					serialtest.writeData(consign.getConsign());
+					consigne.setText(Integer.toString(consign.getConsign()));
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -109,6 +102,7 @@ public class MaFrame extends JFrame {
 				try {
 					consign.removeOneConsign();
 					serialtest.writeData(consign.getConsign());
+					consigne.setText(Integer.toString(consign.getConsign()));
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -120,7 +114,7 @@ public class MaFrame extends JFrame {
 				try {
 					consign.alterConsign(text.getText());
 					serialtest.writeData(consign.getConsign());
-
+					consigne.setText(Integer.toString(consign.getConsign()));
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

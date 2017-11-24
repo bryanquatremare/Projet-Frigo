@@ -12,6 +12,8 @@ import view.MaFrame;
 
 import java.util.Enumeration;
 
+import javax.swing.SwingUtilities;
+
 public class SerialTest implements SerialPortEventListener {
 
 	private String[] inputLines;
@@ -135,6 +137,8 @@ public class SerialTest implements SerialPortEventListener {
 					this.frame.inttemps[this.frame.i] = Integer.parseInt(this.temperature.substring(23, 24));
 					this.frame.inttemps[this.frame.i] = Integer.parseInt(this.temperatureext.substring(23, 24));
 					this.deleteValuesInputLines();
+					this.frame.setVisible(false);
+					this.frame.setVisible(true);
 				}
 
 			} catch (Exception e) {
