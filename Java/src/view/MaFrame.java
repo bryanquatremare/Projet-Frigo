@@ -33,7 +33,7 @@ public class MaFrame extends JFrame {
 																	// texte
 																	// simple)
 	private JLabel consigne; // Label (consigne)
-	static Button more, less, valider;
+	static JButton more, less, valider;
 	static TextArea text;
 	private Consigne consign = new Consigne();
 
@@ -56,10 +56,10 @@ public class MaFrame extends JFrame {
 		this.alarme = new JLabel("ALERTE ALERTE ALERTE !!!! \n Risque de condensation, augmenter la consigne");
 		this.consigne = new JLabel(Integer.toString(this.consign.getConsign()));
 		JFrame main = new JFrame("Interface de gestion du Frigo");
-		more = new Button("+");
-		less = new Button("-");
+		more = new JButton("+");
+		less = new JButton("-");
 		text = new TextArea(1, 4);
-		valider = new Button("Valider");
+		valider = new JButton("Valider");
 		JPanel pane = new JPanel(new GridLayout(0, 1));
 		main.setLayout(new GridLayout(0, 1));
 		main.add(pane);
@@ -80,9 +80,9 @@ public class MaFrame extends JFrame {
 		main.add(new Canva(this.i, this.exttemps, this.inttemps));
 
 		// set up de la fenêtre puis affichage
-		main.setPreferredSize(new Dimension(1000, 800));
+		main.setPreferredSize(new Dimension(1850, 1080));
 		main.pack();
-		main.setLocationRelativeTo(null);
+		main.setLocation(70,0);
 		main.setVisible(true);
 
 		// création des évenements des boutons +/-
