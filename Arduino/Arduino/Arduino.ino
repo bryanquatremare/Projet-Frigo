@@ -8,7 +8,7 @@ DHT dhtint(DHTPININT, DHT22); // initializing intern DHT sensor
 DHT dhtext(DHTPINEXT, DHT22); // initializing extern DHT sensor
 
 // initializing setpoint as global variable because we have to initialise it at 0 but not have to reset at every loop
-int cons = 25;
+int cons = 20;
 
 void setup()
 {
@@ -39,7 +39,6 @@ void loop()
         peltier(cons, tempint);
     }
     
-    //Serial.println(cons);
     Serial.print("Temperature interieure ");
     Serial.println(tempint);
     Serial.print("Temperature exterieure ");
@@ -49,6 +48,9 @@ void loop()
     Serial.print("Alerte condensation ");
     Serial.println(alerte);
     Serial.println("");
+    /*Serial.print("Consigne ");
+    Serial.println(cons);
+    Serial.println("");*/
     delay(2000);
       
 }
@@ -57,12 +59,7 @@ void peltier(char option, int temp)
 {
     int power = 0; //power level 0 to 99%
     int peltier_level = 0;
-    if(option == '+') 
-        power -= 10;
-    else if(option == '-')
-        power += 10;
-    else if(option >= 0 && option <= 30)
-        power = map(option, 25, 15, 0, 99);
+    power = map(option, 25, 15, 0, 99);
 
     if(power > 99) power = 99;
     if(power < 0) power = 0;
@@ -85,8 +82,8 @@ float magnus(float temp, float hum)
 
 int consigne()
 {
-    char buffer[] = {' ',' ',' '};
-    Serial.readBytesUntil('n', buffer, 3);
+    char buffer[] = {' ',' '};
+    Serial.readBytesUntil('n', buffer, 2);
     cons = atoi(buffer);
     /*Debug
     Serial.println(cons);*/
