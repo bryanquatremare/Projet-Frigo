@@ -39,6 +39,7 @@ public class MaFrame extends JFrame {
 
 	public int[] inttemps;
 	public int[] exttemps;
+	Canva canva;
 
 	public MaFrame() {
 		StandardCharsets.UTF_8.name();
@@ -55,6 +56,7 @@ public class MaFrame extends JFrame {
 		this.pointrosee = new JLabel(this.inputarduinotrois);
 		this.alarme = new JLabel("ALERTE ALERTE ALERTE !!!! \n Risque de condensation, augmenter la consigne");
 		this.consigne = new JLabel(Integer.toString(this.consign.getConsign()));
+		this.canva = new Canva(this.i, this.exttemps, this.inttemps);
 		JFrame main = new JFrame("Interface de gestion du Frigo");
 		more = new JButton("+");
 		less = new JButton("-");
@@ -77,12 +79,12 @@ public class MaFrame extends JFrame {
 		pane.add(text);
 		pane.add(consigne);
 		pane.add(valider);
-		main.add(new Canva(this.i, this.exttemps, this.inttemps));
+		main.add(this.canva);
 
 		// set up de la fenêtre puis affichage
 		main.setPreferredSize(new Dimension(1850, 1080));
 		main.pack();
-		main.setLocation(70,0);
+		main.setLocation(70, 0);
 		main.setVisible(true);
 
 		// création des évenements des boutons +/-
@@ -122,6 +124,11 @@ public class MaFrame extends JFrame {
 				}
 			}
 		});
+	}
+
+	public void updateCanva(int i, int[] exttemps, int[] inttemps) {
+		this.canva.updateCanva(i, exttemps, inttemps);
+		this.update(this.getGraphics());
 	}
 
 	public void setTextLabel(String text) {
@@ -168,10 +175,17 @@ public class MaFrame extends JFrame {
 		private int[] inttemps;
 		private int[] exttemps;
 
-		public Canva(int iterator, int[] inttemps, int[] exttemps) {
+		public Canva(int iterator, int[] exttemps, int[] inttemps) {
 			this.iterator = iterator;
 			this.inttemps = inttemps;
 			this.exttemps = exttemps;
+		}
+
+		public void updateCanva(int iterator, int[] exttemps, int[] inttemps) {
+			this.iterator = iterator;
+			this.inttemps = inttemps;
+			this.exttemps = exttemps;
+			this.paintComponent(this.getGraphics());
 		}
 
 		@Override
@@ -201,21 +215,21 @@ public class MaFrame extends JFrame {
 			g.drawString("Temps", 270, 600);
 			if (this.iterator == 1) {
 				g.setColor(Color.BLUE);
-				g.drawOval(80, 540 - (this.inttemps[1] - 10) * 20, 3, 3);
+				g.drawOval(80, 530 - (this.inttemps[1] - 10) * 20, 3, 3);
 				g.setColor(Color.RED);
-				g.drawOval(80, 540 - (this.exttemps[1] - 10) * 20, 3, 3);
+				g.drawOval(80, 530 - (this.exttemps[1] - 10) * 20, 3, 3);
 
 			} else if (this.iterator <= 22) {
 				for (int i = 1; i < this.iterator; i++) {
 					g.setColor(Color.BLUE);
-					g.drawOval(60 + i * 20, 550 - (this.inttemps[i] - 10) * 20, 3, 3);
+					g.drawOval(60 + i * 20, 530 - (this.inttemps[i] - 10) * 20, 3, 3);
 					g.setColor(Color.RED);
-					g.drawOval(60 + i * 20, 550 - (this.exttemps[i] - 10) * 20, 3, 3);
+					g.drawOval(60 + i * 20, 530 - (this.exttemps[i] - 10) * 20, 3, 3);
 				}
 				g.setColor(Color.BLUE);
-				g.drawOval(60 + this.iterator * 20, 550 - (this.inttemps[this.iterator] - 10) * 20, 3, 3);
+				g.drawOval(60 + this.iterator * 20, 530 - (this.inttemps[this.iterator] - 10) * 20, 3, 3);
 				g.setColor(Color.RED);
-				g.drawOval(60 + this.iterator * 20, 550 - (this.exttemps[this.iterator] - 10) * 20, 3, 3);
+				g.drawOval(60 + this.iterator * 20, 530 - (this.exttemps[this.iterator] - 10) * 20, 3, 3);
 
 			} else {
 				float[] hsb = Color.RGBtoHSB(240, 240, 240, new float[3]);
@@ -223,14 +237,14 @@ public class MaFrame extends JFrame {
 				g.fillPolygon(new Polygon(new int[] { 60, 60, 620, 620 }, new int[] { 60, 520, 520, 60 }, 4));
 				for (int i = 1; i < 22; i++) {
 					g.setColor(Color.BLUE);
-					g.drawOval(60 + (i - 1) * 20, 550 - (this.inttemps[this.iterator - 23 + i] - 10) * 20, 3, 3);
+					g.drawOval(60 + (i - 1) * 20, 530 - (this.inttemps[this.iterator - 23 + i] - 10) * 20, 3, 3);
 					g.setColor(Color.RED);
-					g.drawOval(60 + (i - 1) * 20, 550 - (this.exttemps[this.iterator - 23 + i] - 10) * 20, 3, 3);
+					g.drawOval(60 + (i - 1) * 20, 530 - (this.exttemps[this.iterator - 23 + i] - 10) * 20, 3, 3);
 				}
 				g.setColor(Color.BLUE);
-				g.drawOval(60 + 22 * 20, 550 - (this.inttemps[this.iterator] - 10) * 20, 3, 3);
+				g.drawOval(60 + 22 * 20, 530 - (this.inttemps[this.iterator] - 10) * 20, 3, 3);
 				g.setColor(Color.RED);
-				g.drawOval(60 + 22 * 20, 550 - (this.exttemps[this.iterator] - 10) * 20, 3, 3);
+				g.drawOval(60 + 22 * 20, 530 - (this.exttemps[this.iterator] - 10) * 20, 3, 3);
 			}
 		}
 	}
