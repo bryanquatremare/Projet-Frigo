@@ -21,6 +21,6 @@ public class Main {
 		};
 		t.start();
 		main.run(maframe); // lance la frame avec un serialtest pour récupérer
-		new SerialPortEvent(null, 0, false, false);			// les infos de l'arduino
+				// les infos de l'arduino
 	}
 }

@@ -130,11 +130,11 @@ public class SerialTest implements SerialPortEventListener {
 					this.frame.setTextLabel(this.temperature);
 					this.frame.setTextLabeldeux(this.temperatureext);
 					this.frame.setTextLabelTrois(this.pointrosee);
-
 					this.frame.setInputArduinoquatre(Boolean.parseBoolean(this.alerte));
 					this.frame.i += 1;
-					this.frame.inttemps[this.frame.i] = Integer.parseInt(this.temperature.substring(23, 24));
-					this.frame.inttemps[this.frame.i] = Integer.parseInt(this.temperatureext.substring(23, 24));
+					this.frame.inttemps[this.frame.i] = Integer.parseInt(this.temperature.substring(24, 26));
+					this.frame.inttemps[this.frame.i] = Integer.parseInt(this.temperatureext.substring(24, 26));
+					System.out.println(this.frame.exttemps[3]);
 					this.deleteValuesInputLines();
 					this.writeData(this.consign.getConsign());
 				}
