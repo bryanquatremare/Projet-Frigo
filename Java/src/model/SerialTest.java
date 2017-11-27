@@ -132,9 +132,12 @@ public class SerialTest implements SerialPortEventListener {
 					this.frame.setTextLabelTrois(this.pointrosee);
 					this.frame.setInputArduinoquatre(Boolean.parseBoolean(this.alerte));
 					this.frame.i += 1;
-					this.frame.inttemps[this.frame.i] = Integer.parseInt(this.temperature.substring(24, 26));
-					this.frame.inttemps[this.frame.i] = Integer.parseInt(this.temperatureext.substring(24, 26));
-					System.out.println(this.frame.exttemps[3]);
+					System.out.println(this.temperature.substring(23, 25));
+					System.out.println(this.frame.i);
+					this.frame.inttemps[this.frame.i] = Integer.parseInt(this.temperature.substring(23, 25));
+					this.frame.exttemps[this.frame.i] = Integer.parseInt(this.temperatureext.substring(23, 25));
+					this.frame.updateCanva(this.frame.i, this.frame.exttemps, this.frame.inttemps);
+					System.out.println(this.frame.inttemps[this.frame.i]);
 					this.deleteValuesInputLines();
 					this.writeData(this.consign.getConsign());
 				}
@@ -159,14 +162,14 @@ public class SerialTest implements SerialPortEventListener {
 		String output1 = Integer.toString(consigne);
 		int a = output1.length();
 		char[] output2 = new char[a];
-		
+
 		for (int i = 0; i < a; i++) {
-		output2[i]=output1.charAt(i);
-		int ascii = (int) output2[i];
-		
-		output.write(ascii);
-		System.out.print("byte = " + ascii + "\n");
-		output.close();
+			output2[i] = output1.charAt(i);
+			int ascii = (int) output2[i];
+
+			output.write(ascii);
+			System.out.print("byte = " + ascii + "\n");
+			output.close();
 		}
 	}
 }

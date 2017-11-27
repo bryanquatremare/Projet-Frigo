@@ -48,6 +48,6 @@ public class Consigne {
 			this.setConsign(this.getConsign() + 1);
 		}
 		this.reponse = "-";
-		this.setConsign(this.getConsign()-1);
+		this.setConsign(this.getConsign() - 1);
 	}
 }
